@@ -1,3 +1,5 @@
+import StatictisLine from './StatisticLine'
+
 const Statictis = ({ good, neutral, bad }) => {
     const totalAverage = () => {
         const total = good + neutral + bad
@@ -8,19 +10,27 @@ const Statictis = ({ good, neutral, bad }) => {
     const positiveAverage = () => {
         const total = good + neutral + bad
         if (total === 0) return 0
-        return (good / total) * 100
+        return `${(good / total) * 100}%`
     }
     return (
         <>
             {good || neutral || bad ? (
-                <>
-                    <p>{`Good: ${good}`}</p>
-                    <p>{`Neutral: ${neutral}`}</p>
-                    <p>{`Bad: ${bad}`}</p>
-                    <p>{`All: ${bad + neutral + good}`}</p>
-                    <p>{`Average: ${totalAverage()}`}</p>
-                    <p>{`Positive: ${positiveAverage()} %`}</p>
-                </>
+                <table>
+                    <tbody>
+                        <StatictisLine text='Good' value={good} />
+                        <StatictisLine text='Neutral' value={neutral} />
+                        <StatictisLine text='Bad' value={bad} />
+                        <StatictisLine
+                            text='All'
+                            value={good + neutral + bad}
+                        />
+                        <StatictisLine text='Average' value={totalAverage()} />
+                        <StatictisLine
+                            text='Positive'
+                            value={positiveAverage()}
+                        />
+                    </tbody>
+                </table>
             ) : (
                 <p>{'No feedback given'}</p>
             )}
