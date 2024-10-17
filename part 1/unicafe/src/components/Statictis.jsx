@@ -12,12 +12,18 @@ const Statictis = ({ good, neutral, bad }) => {
     }
     return (
         <>
-            <p>{`Good: ${good}`}</p>
-            <p>{`Neutral: ${neutral}`}</p>
-            <p>{`Bad: ${bad}`}</p>
-            <p>{`All: ${bad + neutral + good}`}</p>
-            <p>{`Average: ${totalAverage()}`}</p>
-            <p>{`Positive: ${positiveAverage()} %`}</p>
+            {good || neutral || bad ? (
+                <>
+                    <p>{`Good: ${good}`}</p>
+                    <p>{`Neutral: ${neutral}`}</p>
+                    <p>{`Bad: ${bad}`}</p>
+                    <p>{`All: ${bad + neutral + good}`}</p>
+                    <p>{`Average: ${totalAverage()}`}</p>
+                    <p>{`Positive: ${positiveAverage()} %`}</p>
+                </>
+            ) : (
+                <p>{'No feedback given'}</p>
+            )}
         </>
     )
 }
