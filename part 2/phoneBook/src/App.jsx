@@ -1,4 +1,7 @@
 import { useState } from 'react'
+import Filter from './components/Filter'
+import NewContactForm from './components/newContactForm'
+import Persons from './components/Persons'
 
 const App = () => {
     const [persons, setPersons] = useState([
@@ -8,72 +11,26 @@ const App = () => {
     const [newNumber, setNewNumber] = useState('')
     const [filter, setFilter] = useState('')
 
-    const handlerSubmit = (e) => {
-        e.preventDefault()
-        if (
-            persons.some(
-                (person) =>
-                    person.name === newName || person.number === newNumber
-            )
-        ) {
-            const duplicateField = persons.some(
-                (person) => person.name === newName
-            )
-                ? newName
-                : newNumber
-            alert(`${duplicateField} is already added to phonebook`)
-            setNewName('')
-            setNewNumber('')
-            return
-        }
-
-        setPersons([...persons, { name: newName, number: newNumber }])
-        setNewName('')
-        setNewNumber('')
-    }
     const filteredPersons = persons.filter((person) =>
         person.name.toLowerCase().includes(filter.toLowerCase())
     )
 
     return (
-        <div>
+        <section>
             <h2>Phonebook</h2>
-            <div>
-                filter shown with:
-                <input
-                    type='text'
-                    onChange={(e) => setFilter(e.target.value)}
-                />
-            </div>
-            <h2>Add a new</h2>
-            <form onSubmit={handlerSubmit}>
-                <div>
-                    name:
-                    <input
-                        type='text'
-                        value={newName}
-                        onChange={(e) => setNewName(e.target.value)}
-                    />
-                </div>
-                <div>
-                    number:
-                    <input
-                        type='text'
-                        value={newNumber}
-                        onChange={(e) => setNewNumber(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <button type='submit'>add</button>
-                </div>
-            </form>
-            <h2>Numbers</h2>
-            {filteredPersons?.map((person) => (
-                <div
-                    key={person.name}
-                >{`${person.name}: ${person.number}`}</div>
-            ))}
-        </div>
+            <Filter setFilter={setFilter} />
+            <h3>Add a new contact</h3>
+            <NewContactForm
+                setNewNumber={setNewNumber}
+                setNewName={setNewName}
+                setPersons={setPersons}
+                newName={newName}
+                newNumber={newNumber}
+                persons={persons}
+            />
+            <h3>Contacs</h3>
+            <Persons filteredPersons={filteredPersons} />
+        </section>
     )
 }
 
