@@ -15,6 +15,7 @@ const App = () => {
 
     const [selected, setSelected] = useState(0)
     const [votes, setVotes] = useState({})
+    const [mostVoted, setMostVoted] = useState({})
 
     return (
         <Content
@@ -23,6 +24,8 @@ const App = () => {
             anecdotes={anecdotes}
             setVotes={setVotes}
             votes={votes}
+            mostVoted={mostVoted}
+            setMostVoted={setMostVoted}
         />
     )
 }

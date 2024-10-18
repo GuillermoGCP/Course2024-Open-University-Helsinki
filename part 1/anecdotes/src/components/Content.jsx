@@ -1,7 +1,15 @@
 import Button from './Button'
 import Anecdotes from './Anecdotes'
 
-const Content = ({ anecdotes, selected, setSelected, setVotes, votes }) => {
+const Content = ({
+    anecdotes,
+    selected,
+    setSelected,
+    setVotes,
+    votes,
+    mostVoted,
+    setMostVoted,
+}) => {
     return (
         <main>
             <Anecdotes
@@ -10,6 +18,8 @@ const Content = ({ anecdotes, selected, setSelected, setVotes, votes }) => {
                 setSelected={setSelected}
                 setVotes={setVotes}
                 votes={votes}
+                mostVoted={mostVoted}
+                setMostVoted={setMostVoted}
             />
         </main>
     )
