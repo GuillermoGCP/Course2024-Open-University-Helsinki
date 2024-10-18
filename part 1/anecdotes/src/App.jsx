@@ -14,15 +14,16 @@ const App = () => {
     ]
 
     const [selected, setSelected] = useState(0)
+    const [votes, setVotes] = useState({})
 
     return (
-        <main>
-            <Content
-                selected={selected}
-                setSelected={setSelected}
-                anecdotes={anecdotes}
-            />
-        </main>
+        <Content
+            selected={selected}
+            setSelected={setSelected}
+            anecdotes={anecdotes}
+            setVotes={setVotes}
+            votes={votes}
+        />
     )
 }
 
