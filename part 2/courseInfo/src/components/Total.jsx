@@ -1,4 +1,4 @@
-const Total = ({ sum }) => {
-    return <p>{`Number of exercises ${sum}`}</p>
+const Total = ({ totalExercises }) => {
+    return <strong>{`Number of exercises ${totalExercises}`}</strong>
 }
 export default Total
