@@ -32,7 +32,10 @@ const App = () => {
                 persons={persons}
             />
             <h3>Contacs</h3>
-            <Persons filteredPersons={filteredPersons} />
+            <Persons
+                filteredPersons={filteredPersons}
+                setPersons={setPersons}
+            />
         </section>
     )
 }

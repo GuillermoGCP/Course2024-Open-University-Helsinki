@@ -23,8 +23,18 @@ const update = (id, newObject) => {
     return axios.put(`${baseUrl}/${id}`, newObject)
 }
 
+const deleteEntrie = (id) => {
+    const request = axios.delete(`${baseUrl}/${id}`)
+    return request
+        .then((response) => response.data)
+        .catch((error) => {
+            console.error('Error deleting data from server:', error)
+        })
+}
+
 export default {
     getAll,
     create,
     update,
+    deleteEntrie,
 }
