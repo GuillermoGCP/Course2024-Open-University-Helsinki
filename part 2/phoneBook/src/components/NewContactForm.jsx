@@ -1,4 +1,5 @@
 import React from 'react'
+import personsService from '../services/personsService'
 
 const NewContactForm = ({
     setNewName,
@@ -27,9 +28,13 @@ const NewContactForm = ({
             return
         }
 
-        setPersons([...persons, { name: newName, number: newNumber }])
-        setNewName('')
-        setNewNumber('')
+        personsService
+            .create({ name: newName, number: newNumber })
+            .then((newPerson) => {
+                setPersons(persons.concat(newPerson))
+                setNewName('')
+                setNewNumber('')
+            })
     }
     return (
         <form onSubmit={handleSubmit}>
