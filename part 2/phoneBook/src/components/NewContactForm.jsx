@@ -11,21 +11,40 @@ const NewContactForm = ({
 }) => {
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (
-            persons.some(
-                (person) =>
-                    person.name === newName || person.number === newNumber
+        if (persons.some((person) => person.name === newName)) {
+            const userResponse = window.confirm(
+                `${newName} is already added to phonebook, replace the old number with a new one?`
             )
-        ) {
-            const duplicateField = persons.some(
-                (person) => person.name === newName
-            )
-                ? newName
-                : newNumber
-            alert(`${duplicateField} is already added to phonebook`)
-            setNewName('')
-            setNewNumber('')
-            return
+            if (!userResponse) {
+                setNewName('')
+                setNewNumber('')
+                return
+            } else {
+                personsService
+                    .update(
+                        persons.find((person) => person.name === newName).id,
+                        {
+                            name: newName,
+                            number: newNumber,
+                        }
+                    )
+                    .then((updatedPerson) => {
+                        setPersons(
+                            persons.map((person) =>
+                                person.id === updatedPerson.id
+                                    ? updatedPerson
+                                    : person
+                            )
+                        )
+                        setNewName('')
+                        setNewNumber('')
+                    })
+                    .catch((error) => {
+                        console.error(error)
+                        alert(`Error updating ${newName}'s contact`)
+                    })
+                return
+            }
         }
 
         personsService
