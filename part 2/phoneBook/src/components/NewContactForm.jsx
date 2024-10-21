@@ -8,6 +8,7 @@ const NewContactForm = ({
     newNumber,
     newName,
     persons,
+    setSuccessMessage,
 }) => {
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -38,10 +39,13 @@ const NewContactForm = ({
                         )
                         setNewName('')
                         setNewNumber('')
+                        setSuccessMessage(`${newName} updated`)
+                        setInterval(() => {
+                            setSuccessMessage(null)
+                        }, 3000)
                     })
                     .catch((error) => {
                         console.error(error)
-                        alert(`Error updating ${newName}'s contact`)
                     })
                 return
             }
@@ -53,6 +57,10 @@ const NewContactForm = ({
                 setPersons(persons.concat(newPerson))
                 setNewName('')
                 setNewNumber('')
+                setSuccessMessage(`${newName} added to book`)
+                setInterval(() => {
+                    setSuccessMessage(null)
+                }, 5000)
             })
     }
     return (
