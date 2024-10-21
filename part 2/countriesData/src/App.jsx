@@ -7,7 +7,8 @@ function App() {
     const [allCountries, setAllCountries] = React.useState([])
     const [searchTearm, setSearchTearm] = React.useState([])
     const [filteredData, setFilteredData] = React.useState([])
-    const [selectedCountry, setSelectedCountry] = React.useState({})
+    const [selectedCountry, setSelectedCountry] = React.useState(null)
+    const [weatherInfo, setWeatherInfo] = React.useState(null)
 
     React.useEffect(() => {
         axios
@@ -45,6 +46,8 @@ function App() {
                         filteredData={filteredData}
                         selectedCountry={selectedCountry}
                         setSelectedCountry={setSelectedCountry}
+                        weatherInfo={weatherInfo}
+                        setWeatherInfo={setWeatherInfo}
                     />
                 </section>
             </main>

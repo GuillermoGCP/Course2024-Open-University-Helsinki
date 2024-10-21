@@ -5,6 +5,8 @@ const CountriesLis = ({
     filteredData,
     selectedCountry,
     setSelectedCountry,
+    weatherInfo,
+    setWeatherInfo,
 }) => {
     return (
         <>
@@ -17,7 +19,11 @@ const CountriesLis = ({
             ) : filteredData.length === 1 ? (
                 filteredData.map((country) => (
                     <div key={country.cca3}>
-                        <Country country={country} />
+                        <Country
+                            country={country}
+                            weatherInfo={weatherInfo}
+                            setWeatherInfo={setWeatherInfo}
+                        />
                     </div>
                 ))
             ) : (
@@ -32,7 +38,13 @@ const CountriesLis = ({
                     ))}
                 </ul>
             )}
-            {selectedCountry && <Country country={selectedCountry} />}
+            {selectedCountry && (
+                <Country
+                    country={selectedCountry}
+                    weatherInfo={weatherInfo}
+                    setWeatherInfo={setWeatherInfo}
+                />
+            )}
         </>
     )
 }

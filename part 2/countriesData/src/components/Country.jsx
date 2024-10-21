@@ -1,4 +1,20 @@
-const Country = ({ country }) => {
+import React from 'react'
+import axios from 'axios'
+import WeatherInfo from './WeatherInfo'
+
+const Country = ({ country, weatherInfo, setWeatherInfo }) => {
+    React.useEffect(() => {
+        axios
+            .get(
+                `http://api.weatherapi.com/v1/current.json?key=${
+                    import.meta.env.VITE_WHEATHER_KEY
+                }&q=${country.capital}&aqi=no`
+            )
+            .then((response) => setWeatherInfo(response.data))
+            .catch((error) =>
+                console.log('Error retrieving weather information', error)
+            )
+    }, [country])
     return (
         country && (
             <>
@@ -20,6 +36,7 @@ const Country = ({ country }) => {
                 {country.flags && Object.keys(country.flags).length > 1 && (
                     <img src={country.flags.png} alt={country.alt} />
                 )}
+                <WeatherInfo weatherInfo={weatherInfo} country={country} />
             </>
         )
     )
