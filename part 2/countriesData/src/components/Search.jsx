@@ -1,6 +1,7 @@
-const Search = ({ setSearchTearm }) => {
+const Search = ({ setSearchTearm, setSelectedCountry }) => {
     const handleSearch = (e) => {
         setSearchTearm(e.target.value)
+        setSelectedCountry(null)
     }
     return (
         <div>

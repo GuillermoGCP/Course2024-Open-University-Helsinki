@@ -1,6 +1,11 @@
 import React from 'react'
+import Country from './Country'
 
-const CountriesLis = ({ filteredData }) => {
+const CountriesLis = ({
+    filteredData,
+    selectedCountry,
+    setSelectedCountry,
+}) => {
     return (
         <>
             {filteredData.length === 0 ? (
@@ -12,39 +17,22 @@ const CountriesLis = ({ filteredData }) => {
             ) : filteredData.length === 1 ? (
                 filteredData.map((country) => (
                     <div key={country.cca3}>
-                        <p>
-                            Name: {country.name.official || country.name.common}
-                        </p>
-                        {country.capital && country.capital.length > 0 && (
-                            <p>Capital: {country.capital[0]}</p>
-                        )}
-                        <p>Area: {country.area}</p>
-                        <ul>
-                            Languages:
-                            {country.languages
-                                ? Object.entries(country.languages).map(
-                                      ([code, language]) => (
-                                          <li key={code}>{language}</li>
-                                      )
-                                  )
-                                : 'No languages available'}
-                        </ul>
-                        {country.flags &&
-                            Object.keys(country.flags).length > 1 && (
-                                <img
-                                    src={country.flags.png}
-                                    alt={country.alt}
-                                />
-                            )}
+                        <Country country={country} />
                     </div>
                 ))
             ) : (
                 <ul>
                     {filteredData.map((country) => (
-                        <li key={country.cca3}>{country.name.common}</li>
+                        <li key={country.cca3}>
+                            {country.name.common}
+                            <button onClick={() => setSelectedCountry(country)}>
+                                Show
+                            </button>
+                        </li>
                     ))}
                 </ul>
             )}
+            {selectedCountry && <Country country={selectedCountry} />}
         </>
     )
 }
