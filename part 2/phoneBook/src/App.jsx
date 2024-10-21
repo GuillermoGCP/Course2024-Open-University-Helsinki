@@ -11,13 +11,19 @@ const App = () => {
     const [newNumber, setNewNumber] = useState('')
     const [filter, setFilter] = useState('')
     const [successMessage, setSuccessMessage] = useState(null)
+    const [errorMessage, setErrorMessage] = useState(null)
 
     const filteredPersons = persons.filter((person) =>
         person.name.toLowerCase().includes(filter.toLowerCase())
     )
 
     useEffect(() => {
-        personsService.getAll().then((response) => setPersons(response))
+        personsService
+            .getAll()
+            .then((response) => setPersons(response))
+            .catch((error) => {
+                console.error('Error fetching data:', error)
+            })
     }, [])
 
     return (
@@ -25,6 +31,9 @@ const App = () => {
             <h2>Phonebook</h2>
             {successMessage && (
                 <Notification message={successMessage} className={'success'} />
+            )}
+            {errorMessage && (
+                <Notification message={errorMessage} className={'error'} />
             )}
             <Filter setFilter={setFilter} />
             <h3>Add a new contact</h3>
@@ -36,6 +45,7 @@ const App = () => {
                 newNumber={newNumber}
                 persons={persons}
                 setSuccessMessage={setSuccessMessage}
+                setErrorMessage={setErrorMessage}
             />
             <h3>Contacs</h3>
             <Persons

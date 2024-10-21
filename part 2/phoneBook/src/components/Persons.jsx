@@ -7,12 +7,17 @@ const Persons = ({ filteredPersons, setPersons }) => {
             'Are you sure to delete this entry?'
         )
         if (!userResponse) return
-        personsService.deleteEntrie(id).then((response) => {
-            console.log(`Entrie with id ${response.id}, deleted`)
-            setPersons((prevData) =>
-                prevData.filter((person) => person.id !== id)
-            )
-        })
+        personsService
+            .deleteEntrie(id)
+            .then((response) => {
+                console.log(`Entrie with id ${response.id}, deleted`)
+                setPersons((prevData) =>
+                    prevData.filter((person) => person.id !== id)
+                )
+            })
+            .catch((error) => {
+                console.error('Error deleting data from server:', error)
+            })
     }
     return (
         <>

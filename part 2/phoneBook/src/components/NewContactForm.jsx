@@ -9,6 +9,7 @@ const NewContactForm = ({
     newName,
     persons,
     setSuccessMessage,
+    setErrorMessage,
 }) => {
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -45,7 +46,31 @@ const NewContactForm = ({
                         }, 3000)
                     })
                     .catch((error) => {
-                        console.error(error)
+                        if (error.status === 404) {
+                            console.log(error.message)
+
+                            setErrorMessage(
+                                `Information of ${
+                                    persons.find(
+                                        (person) => person.name === newName
+                                    ).name
+                                } has been removed from server`
+                            )
+                            setInterval(() => {
+                                setErrorMessage(null)
+                            }, 5000)
+                        } else {
+                            console.log(error.message)
+                            setErrorMessage(
+                                'Error updating number to contact:',
+                                persons.find(
+                                    (person) => person.name === newName
+                                ).name
+                            )
+                            setInterval(() => {
+                                setErrorMessage(null)
+                            }, 5000)
+                        }
                     })
                 return
             }
@@ -61,6 +86,9 @@ const NewContactForm = ({
                 setInterval(() => {
                     setSuccessMessage(null)
                 }, 5000)
+            })
+            .catch((error) => {
+                console.error('Error adding data to server:', error)
             })
     }
     return (
