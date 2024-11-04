@@ -16,7 +16,7 @@ const App = () => {
     const filteredPersons = persons.filter((person) =>
         person.name.toLowerCase().includes(filter.toLowerCase())
     )
-
+    console.log('data', persons)
     useEffect(() => {
         personsService
             .getAll()
