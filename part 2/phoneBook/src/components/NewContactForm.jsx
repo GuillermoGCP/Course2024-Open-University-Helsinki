@@ -95,8 +95,9 @@ const NewContactForm = ({
                     'Error adding data to server:',
                     error.response.data.error
                 )
+                setErrorMessage(error.response.data.error)
                 setTimeout(() => {
-                    setErrorMessage(error.response.data.error)
+                    setErrorMessage(null)
                 }, 5000)
             })
     }
